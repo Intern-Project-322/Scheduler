@@ -10,3 +10,8 @@ type Response record {
 type ScanData record {
     string Id;
 };
+
+type ScanDetails record {
+    json[] Vulnerabilities;
+
+};
