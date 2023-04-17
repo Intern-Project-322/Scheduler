@@ -1,12 +1,13 @@
 import ballerina/regex;
 import ballerina/io;
 public function getScanIdList(string startDate, string endDate) returns error|string[]{
-    Response response = check invictiClient->get("/api/1.0/scans/listbystate?scanTaskState=Complete&startDate="+startDate+"&endDate="+endDate);
-    ScanData[] list = response.List;
+    ScanListByState scanListByState = check invictiClient->get("/api/1.0/scans/listbystate?scanTaskState=Complete&startDate="+startDate+"&endDate="+endDate);
+    Scan [] list = scanListByState.List;
     string[] scanIdList = [];
-    foreach ScanData item in list {
-        scanIdList.push(item.Id);
+    foreach Scan item in list {
+        scanIdList.push(<string>item.Id);
     }
+    io:print(list);
     return scanIdList;
 }
 
